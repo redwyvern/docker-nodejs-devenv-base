@@ -28,15 +28,33 @@ ENV LC_ALL en_US.UTF-8
 # Change this to the normal method once this is fixed.
 RUN ln -fs /usr/share/zoneinfo/${IMAGE_TZ} /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
+# Pre-install some utilities needed to install the rest of the software
+RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommends \
+    curl && \
+    apt-get -q autoremove && \
+    apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
+
+
+RUN curl --silent -k 'https://dl-ssl.google.com/linux/linux_signing_key.pub' | apt-key add - && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+
+RUN curl --silent -k 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - && \
+    printf "deb http://deb.nodesource.com/node_6.x xenial main\ndeb-src http://deb.nodesource.com/node_6.x xenial main\n" >/etc/apt/sources.list.d/nodesource.list
+
 RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommends \
     bzip2 \
     nodejs \
-    nodejs-legacy \
-    npm \
     git \
-    curl \
     unzip \
-    xml2 && \
+    python \
+    xml2 \
+    xvfb \
+    libxi6 \
+    libgconf-2-4 \
+    libnss3-dev \
+    hicolor-icon-theme \
+    build-essential \
+    google-chrome-stable && \
     apt-get -q autoremove && \
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
