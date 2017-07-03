@@ -61,6 +61,7 @@ RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommend
 RUN npm install -g \
     bower \
     grunt \
-    less 
+    less \
+    yarn
 
 
