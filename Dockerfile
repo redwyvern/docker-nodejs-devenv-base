@@ -9,6 +9,11 @@ USER root
 # Pre-install some utilities needed to install the rest of the software
 RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommends \
     locales \
+    tzdata \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common \
     curl && \
     apt-get -q autoremove && \
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
@@ -41,6 +46,13 @@ RUN curl --silent -k 'https://dl-ssl.google.com/linux/linux_signing_key.pub' | a
 RUN curl --silent -k 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - && \
     printf "deb http://deb.nodesource.com/node_6.x xenial main\ndeb-src http://deb.nodesource.com/node_6.x xenial main\n" >/etc/apt/sources.list.d/nodesource.list
 
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
 RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommends \
     bzip2 \
     nodejs \
@@ -57,6 +69,7 @@ RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommend
     dh-make \
     fakeroot \
     devscripts \
+    docker-ce \
     google-chrome-stable && \
     apt-get -q autoremove && \
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
