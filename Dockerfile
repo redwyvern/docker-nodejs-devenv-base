@@ -5,7 +5,7 @@ RUN curl --silent -k 'https://dl-ssl.google.com/linux/linux_signing_key.pub' | a
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 
 RUN curl --silent -k 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add - && \
-    printf "deb http://deb.nodesource.com/node_6.x xenial main\ndeb-src http://deb.nodesource.com/node_6.x xenial main\n" >/etc/apt/sources.list.d/nodesource.list
+    printf "deb http://deb.nodesource.com/node_15.x xenial main\ndeb-src http://deb.nodesource.com/node_6.x xenial main\n" >/etc/apt/sources.list.d/nodesource.list
 
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository \
