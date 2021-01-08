@@ -38,6 +38,7 @@ RUN npm install -g \
     bower \
     grunt \
     less \
-    yarn
+    yarn \
+    semver
 
 
