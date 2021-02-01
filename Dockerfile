@@ -1,4 +1,4 @@
-FROM docker.artifactory.weedon.org.au/redwyvern/ubuntu-base:xenial
+FROM docker.artifactory.weedon.org.au/redwyvern/ubuntu-base:focal
 MAINTAINER Nick Weedon <nick@weedon.org.au>
 
 RUN curl --silent -k 'https://dl-ssl.google.com/linux/linux_signing_key.pub' | apt-key add - && \
